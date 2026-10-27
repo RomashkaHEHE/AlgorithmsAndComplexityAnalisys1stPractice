@@ -1,0 +1,16 @@
+started_utc=2026-10-27T05:43:14.439121900Z
+finished_utc=2026-10-27T05:43:22.834188300Z
+java_runtime=25.0.1+8-LTS
+java_vm=OpenJDK 64-Bit Server VM
+os=Windows 11 10.0
+architecture=amd64
+processors=12
+cpu=Intel64 Family 6 Model 141 Stepping 1, GenuineIntel
+seed=20261027
+max_size=16384
+samples=9
+warmup_rounds_per_scenario=150
+warmup_size=512
+input_seed=seed + scenario_ordinal*1000003 + n*101 + sample
+clock=System.nanoTime
+checksum=197319347262158464
