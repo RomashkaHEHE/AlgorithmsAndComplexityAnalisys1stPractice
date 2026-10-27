@@ -1,7 +1,5 @@
 param(
-    [ValidateSet('test', 'benchmark', 'all')][string]$Task = 'all',
-    [int]$MaxSize = 16384,
-    [int]$Samples = 9
+    [ValidateSet('test', 'all')][string]$Task = 'all'
 )
 $ErrorActionPreference = 'Stop'
 Push-Location $PSScriptRoot
@@ -13,7 +11,7 @@ try {
     & java -cp 'build/classes' ru.urfu.algorithms.SortsTest
     if ($LASTEXITCODE -ne 0) { throw 'Tests failed' }
     if ($Task -ne 'test') {
-        & java -cp 'build/classes' ru.urfu.algorithms.Benchmark $MaxSize $Samples
+        & java -cp 'build/classes' ru.urfu.algorithms.Benchmark
         if ($LASTEXITCODE -ne 0) { throw 'Benchmark failed' }
         & python 'scripts/plot_results.py'
         if ($LASTEXITCODE -ne 0) { throw 'Report generation failed' }

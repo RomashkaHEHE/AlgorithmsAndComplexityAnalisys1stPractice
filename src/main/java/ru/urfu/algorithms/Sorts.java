@@ -1,67 +1,56 @@
 package ru.urfu.algorithms;
 
-import java.util.Objects;
-
-public final class Sorts {
-    private Sorts() { }
-
-    public static void bubbleSort(int[] values) {
-        Objects.requireNonNull(values, "values");
-        for (int end = values.length - 1; end > 0; end--) {
+public class Sorts {
+    public static void bubbleSort(int[] a) {
+        for (int end = a.length - 1; end > 0; end--) {
             boolean swapped = false;
             for (int i = 0; i < end; i++) {
-                if (values[i] > values[i + 1]) {
-                    swap(values, i, i + 1);
+                if (a[i] > a[i + 1]) {
+                    int temp = a[i];
+                    a[i] = a[i + 1];
+                    a[i + 1] = temp;
                     swapped = true;
                 }
             }
             if (!swapped) {
-                return;
+                break;
             }
         }
     }
 
-    public static void quickSort(int[] values) {
-        Objects.requireNonNull(values, "values");
-        quickSort(values, 0, values.length - 1);
+    public static void quickSort(int[] a) {
+        quickSort(a, 0, a.length - 1);
     }
 
-    private static void quickSort(int[] values, int left, int right) {
-        while (left < right) {
-            int i = left;
-            int j = right;
-            int pivot = values[left + (right - left) / 2];
-            while (i <= j) {
-                while (values[i] < pivot) {
-                    i++;
-                }
-                while (values[j] > pivot) {
-                    j--;
-                }
-                if (i <= j) {
-                    swap(values, i, j);
-                    i++;
-                    j--;
-                }
+    private static void quickSort(int[] a, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+
+        int pivot = a[left + (right - left) / 2];
+        int i = left;
+        int j = right;
+        while (i <= j) {
+            while (a[i] < pivot) {
+                i++;
             }
-            // Recurse into the smaller part to bound stack depth by O(log n).
-            if (j - left < right - i) {
-                if (left < j) {
-                    quickSort(values, left, j);
-                }
-                left = i;
-            } else {
-                if (i < right) {
-                    quickSort(values, i, right);
-                }
-                right = j;
+            while (a[j] > pivot) {
+                j--;
+            }
+            if (i <= j) {
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+                i++;
+                j--;
             }
         }
-    }
 
-    private static void swap(int[] values, int first, int second) {
-        int temporary = values[first];
-        values[first] = values[second];
-        values[second] = temporary;
+        if (left < j) {
+            quickSort(a, left, j);
+        }
+        if (i < right) {
+            quickSort(a, i, right);
+        }
     }
 }
